@@ -31,6 +31,7 @@ $(document).ready(function(){
     head += "<th width=60 class=sub>#Qs</th>";
     head += "<th width=20 class=sub>%Qs</th>";
     head += "<th class=sub>" + cbArgs.split("||")[1] + "</th>";
+    head += "<th class=sub>LISTED?</th>";
     head += "</tr></thead>";         
      
     var sum  = raw[raw.length - 1].n || 0;
@@ -46,10 +47,16 @@ $(document).ready(function(){
       var dat    = raw[i].d1 || "-";
       var per = 0;
       if (sum > 0) per = parseFloat(cnt/sum*100).toFixed(2);
+
+      // Check Blacklist status
+      var blStyle  = "style=\"color: #b5b5b5;\"";
+      var blStatus = "NO"; 
+
       row += "<tr class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=row>" + dat + "</td>";
+      row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
       row += "</tr>";
       row += "<tr><td colspan=6><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
     }

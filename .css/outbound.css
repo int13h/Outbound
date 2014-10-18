@@ -31,7 +31,7 @@ margin-right:2%;
 margin-bottom:10px;
 }
 div.box100 {
-width:98%;
+width:100%;
 margin-left:2%;
 margin-right:2%;
 padding:5px;
@@ -57,11 +57,10 @@ margin-right:10px;
 table.dash {
 width:100%;
 margin-bottom:30px;
-border:1pt dotted #e9e9e9;
 border-bottom:none;
 }
 th.sub {
-background:#e9e9e9;
+background:#d5d5d5;
 color:#333366;
 font-size:10px;
 text-align:left;

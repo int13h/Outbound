@@ -17,7 +17,6 @@ $type = $types[$type];
 
 function gbyQuestion() {
     global $limit;
-    $limit = 10;
     $query = "SELECT COUNT(question) AS d0, question AS d1
               FROM questions
               GROUP BY d1
