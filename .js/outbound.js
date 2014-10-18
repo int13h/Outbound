@@ -54,7 +54,6 @@ $(document).ready(function(){
       var dat = raw[i].d1 || "-";
       var sc  = raw[i].d2 || "-";
       var dc  = raw[i].d3 || "-";    
-      var lt  = raw[i].d3 || "-";
       var fs  = raw[i].d4 || "-";
       var ls  = raw[i].d5 || "-";
 
@@ -94,7 +93,11 @@ $(document).ready(function(){
     head += "<th width=60 class=sub>#Q</th>";
     head += "<th width=60 class=sub>%Q</th>";
     head += "<th class=sub>" + colT + "</th>";
-    head += "<th width=60 class=sub>LISTED?</th>";
+    head += "<th width=60 class=sub>RECORD</th>";
+    head += "<th width=60 class=sub>ACTIVE</th>";
+    head += "<th width=60 class=sub>LISTED</th>";
+    head += "<th width=150 class=sub>EPOCH</th>";
+    head += "<th width=150 class=sub>LAST</th>";
     head += "</tr></thead>";         
      
     var sum  = raw[raw.length - 1].n || 0;
@@ -108,9 +111,10 @@ $(document).ready(function(){
     for (var i=0; i<raw.length - 1; i++) {
       var cnt = raw[i].d0 || "-";
       var dat = raw[i].d1 || "-";
-      var sc  = raw[i].d2 || "-";
-      var dc  = raw[i].d3 || "-";    
-      var lt  = raw[i].d3 || "-";
+      var rt  = raw[i].d2 || "-";    
+      var ac  = raw[i].d3 || "-";
+      var fs  = raw[i].d4 || "-";
+      var ls  = raw[i].d5 || "-";
 
       var per = 0;
       if (sum > 0) per = parseFloat(cnt/sum*100).toFixed(2);
@@ -119,11 +123,29 @@ $(document).ready(function(){
       var blStyle  = "style=\"color: #b5b5b5;\""; 
       var blStatus = "NO"; 
 
+      // Is Active?
+      switch (ac) {
+        case "0":
+          var acVal = "NO";
+          var acStyle = " style=\"color:#cc0000;\"";
+        break;
+        case "1":
+          var acVal = "YES";
+          var acStyle = " style=\"color:green;\"";
+        break;
+        default:
+          var acVal = "--";
+      }
+
       row += "<tr class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=row>" + dat + "</td>";
+      row += "<td class=row>" + rt + "</td>";
+      row += "<td class=row" + acStyle + ">" + acVal + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
+      row += "<td class=row>" + fs + "</td>";
+      row += "<td class=row>" + ls + "</td>";
       row += "</tr>";
       row += "<tr><td colspan=6><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
     }

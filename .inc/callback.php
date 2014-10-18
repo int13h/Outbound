@@ -12,7 +12,7 @@ $types = array(
                   1 => 'gbyAnswer',
 );
 
-$limit = 10;
+$limit = 10000;
 $type = $types[$type];
 
 function gbyQuestion() {
@@ -43,7 +43,12 @@ function gbyQuestion() {
 
 function gbyAnswer() {
     global $limit;
-    $query = "SELECT COUNT(data) AS d0, data AS d1
+    $query = "SELECT COUNT(data) AS d0,
+              data AS d1,
+              record AS d2,
+              active AS d3,
+              created_at AS d4,
+              updated_at AS d5   
               FROM answers
               GROUP BY d1
               ORDER BY d0 DESC";

@@ -1,6 +1,6 @@
 body {
 font-family:tahoma, calibri, helvetica, sans;
-font-size:10pt;
+font-size:12px;
 text-align:left;
 background-color:#fafafa;
 padding:0;
@@ -29,7 +29,7 @@ width:100%
 float:left;
 text-align:left;
 margin-bottom:10px;
-margin-top:10px;
+clear:right;
 }
 div.box100 {
 width:100%;
@@ -44,6 +44,8 @@ width:100%;
 text-align:left;
 border:1pt solid #ccc;
 background-color:#fafafa;
+clear:both;
+margin-bottom:20px;
 }
 .search {
 border:none;
@@ -57,7 +59,6 @@ margin-left:10px;
 }
 table.dash {
 width:100%;
-margin-bottom:30px;
 border-bottom:none;
 }
 th.sub {
