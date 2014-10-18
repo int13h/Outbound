@@ -22,13 +22,13 @@ for bl in $lists; do
 done;
 
 # Remove duplicates and normalize text
-cat $workdir/temp.txt | grep -v ^# | grep -v "^$" | sed 's/  / /g' | tr '[A-Z]' '[a-z]' | sort | uniq > $workdir/insert.txt
+cat $workdir/temp.txt | grep -v ^# | grep -v "^$" | sed 's/  / /g' | tr '[A-Z]' '[a-z]' | sed 's/$/./'| sort | uniq > $workdir/insert.txt
 rm -f $workdir/temp.txt
 
 # Cleanup (this will be more robust later. PoC for now. Also won't be in sh either :/
-mysql -N -B -ulists -plists -e "TRUNCATE TABLE dnas.blacklists;"
+mysql -N -B -ulists -plists -e "TRUNCATE TABLE dnas.listed;"
 
 # Now lets try an insert
-mysql -N -B -ulists -plists -e "LOAD DATA LOCAL INFILE 'insert.txt' INTO TABLE dnas.blacklists;"
+mysql -N -B -ulists -plists -e "LOAD DATA LOCAL INFILE 'insert.txt' INTO TABLE dnas.listed;"
 
 cleanup

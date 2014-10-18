@@ -1,0 +1,76 @@
+.slideraxis {
+font: 0px sans-serif;
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+}
+.slideraxis .sliderdomain {
+display:none;
+fill: none;
+stroke: #000;
+}
+.slideraxis .sliderhalo {
+fill:none;
+stroke:#b1b2b3;
+stroke-width:1px;
+}
+.slider .sliderhandle {
+fill: #E1EFFA;
+stroke: #666;
+stroke-width: 2px;
+pointer-events: none;
+}
+.node rect {
+cursor: move;
+fill-opacity: .9;
+shape-rendering: crispEdges;
+}
+.nodetext {
+cursor:pointer;
+font-size:11px;
+font-family:tahoma,sans-serif,arial;
+}
+.nodetext:hover {
+font-weight:bold;
+}
+.link {
+fill: none;
+stroke: #666;
+stroke-opacity: .2;
+}
+.link1 {
+fill: none;
+stroke: #cc0000;
+stroke-opacity: .4;
+}
+.link:hover, .link1:hover {
+stroke-opacity: .5;
+}
+
+.axis {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  stroke: #000;
+}
+
+.link {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1.5px;
+  stroke-opacity: .3;
+}
+
+.link.active {
+  stroke: red;
+  stroke-width: 2px;
+  stroke-opacity: 1;
+}
+
+.node circle.active {
+  stroke: red;
+  stroke-width: 3px;
+}
+

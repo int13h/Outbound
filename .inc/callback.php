@@ -12,18 +12,19 @@ $types = array(
                   1 => 'gbyAnswer',
 );
 
-$limit = 10000;
 $type = $types[$type];
 
 function gbyQuestion() {
-    global $limit;
+    $limit = $_REQUEST['limit'];
     $query = "SELECT COUNT(question) AS d0, 
               question AS d1,
               COUNT(DISTINCT(src_ip)) AS d2,
               COUNT(DISTINCT(dst_ip)) AS d3,
               MIN(timestamp) AS d4,
-              MAX(timestamp) AS d5
+              MAX(timestamp) AS d5,
+              object AS d6
               FROM questions
+              LEFT JOIN listed ON question = object
               GROUP BY d1
               ORDER BY d0 DESC";
     $result = mysql_query($query);
@@ -42,7 +43,7 @@ function gbyQuestion() {
 }
 
 function gbyAnswer() {
-    global $limit;
+    $limit = $_REQUEST['limit'];
     $query = "SELECT COUNT(data) AS d0,
               data AS d1,
               record AS d2,

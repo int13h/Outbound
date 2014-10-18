@@ -1,21 +1,21 @@
 $(document).ready(function(){
 
   // Make intial boxes
-  var limit = 20;
+  var limit = 10;
   mkBox("gbyQ",limit);
   mkBox("gbyA",limit);
 
   function mkBox(box,limit) {
     switch (box) {
       case "gbyQ":
-        var urArgs = "type=0";
+        var urArgs = "type=0&limit=" + limit;
         var cbArgs = box + "||QUESTION";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb00(data,cbArgs)});
         });
       break;
       case "gbyA":
-        var urArgs = "type=1";
+        var urArgs = "type=1&limit=" + limit;
         var cbArgs = box + "||ANSWER";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb01(data,cbArgs)});
@@ -56,20 +56,29 @@ $(document).ready(function(){
       var dc  = raw[i].d3 || "-";    
       var fs  = raw[i].d4 || "-";
       var ls  = raw[i].d5 || "-";
+      var bl  = raw[i].d6 || "-";
 
       var per = 0;
       if (sum > 0) per = parseFloat(cnt/sum*100).toFixed(2);
 
-      // Check Blacklist status
-      var blStyle  = "style=\"color: #b5b5b5;\""; 
-      var blStatus = "NO"; 
+      // Check blacklists
+      switch (bl) {
+        case "-":
+          var blStyle  = "style=\"color: #b5b5b5;\""; 
+          var blStatus = "NO";
+        break;
+        default:
+          var blStyle  = "style=\"color: #cc0000; font-weight:bold;\"";
+          var blStatus = "YES";
+        break;
+      }  
 
       row += "<tr class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=row><b>" + sc + "</b></td>";
       row += "<td class=row><b>" + dc + "</b></td>";
-      row += "<td class=row>" + dat + "</td>";
+      row += "<td class=\"row row_filter\">" + dat + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
       row += "<td class=\"row time\">" + fs + "</td>";
       row += "<td class=\"row time\">" + ls + "</td>";
@@ -80,6 +89,9 @@ $(document).ready(function(){
     tbl += head;
     tbl += row;
     tbl += "</table>";
+    if ($("#top" + dID)[0]) $("#top" + dID).remove();
+    $("#ov_" + dID + "_msg").html("viewing <b><span id=ov_" + dID + "_sl_lbl>" + i + "</b> of <b>" + rec + " </b>results"); 
+    mkSlider("ov_" + dID + "_sl", i, rec);
     $("#" + dID).html(tbl);
   }
 
@@ -140,7 +152,7 @@ $(document).ready(function(){
       row += "<tr class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
-      row += "<td class=row>" + dat + "</td>";
+      row += "<td class=\"row row_filter\">" + dat + "</td>";
       row += "<td class=row>" + rt + "</td>";
       row += "<td class=row" + acStyle + ">" + acVal + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
@@ -153,6 +165,17 @@ $(document).ready(function(){
     tbl += head;
     tbl += row;
     tbl += "</table>";
+    if ($("#top" + dID)[0]) $("#top" + dID).remove();
+    $("#ov_" + dID + "_msg").html("viewing <b><span id=ov_" + dID + "_sl_lbl>" + i + "</b> of <b>" + rec + " </b>results"); 
+    mkSlider("ov_" + dID + "_sl", i, rec);
     $("#" + dID).html(tbl);
   }
+
+  // Slider events
+  $(".ovsl").mouseup(function() {
+    var section = $(this).attr('id');
+    var base    = section.split("_")[1];
+    var limit   = Number($("#" + section + "_lbl").text());
+    if (limit > 0) mkBox(base, limit);
+  }); 
 });
