@@ -14,6 +14,7 @@ checkDB();
 <meta content="utf-8" http-equiv="encoding">
 <link rel="stylesheet" type="text/css" href=".css/outbound.css" />
 <script type="text/javascript" src=".js/jq.js"></script>
+<script type="text/javascript" src=".js/outbound.js"></script>
 <script type="text/javascript" src=".js/d3/d3.min.js"></script>
 </head>
 <body>
@@ -25,10 +26,10 @@ checkDB();
 </div>
 
 <div class=box data-value=0>
-
-  <div class=box50>Test L</div>
-  <div class=box50>Test R</div>
-
+  <div class=box_hdr id=gbyQhdr>Top Questions</div>
+  <div class=box_hdr id=gbyAhdr>Top Answers</div>
+  <div class=box50 id=gbyQ></div>
+  <div class=box50 id=gbyA></div>
 </div>
 
 </body>
