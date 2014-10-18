@@ -21,15 +21,15 @@ checkDB();
 
 <div class=box>
   <div class=box100>
-      <span class=label_a>SEARCH</span><input class=input id=search maxlength=500>
+      <span class=label_a>SEARCH</span><input class=input id=search maxlength=500 size=50>
   </div>
 </div>
 
 <div class=box data-value=0>
-  <div class=box_hdr id=gbyQhdr>Top Questions</div>
-  <div class=box_hdr id=gbyAhdr>Top Answers</div>
+  <div class=box_hdr id=gbyQhdr>QUESTIONS</div>
   <div class=box50 id=gbyQ></div>
-  <div class=box50 id=gbyA></div>
+  <div class=box_hdr id=gbyAhdr>ANSWERS</div>
+ <div class=box50 id=gbyA></div>
 </div>
 
 </body>

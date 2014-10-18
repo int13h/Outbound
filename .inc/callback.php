@@ -17,7 +17,12 @@ $type = $types[$type];
 
 function gbyQuestion() {
     global $limit;
-    $query = "SELECT COUNT(question) AS d0, question AS d1
+    $query = "SELECT COUNT(question) AS d0, 
+              question AS d1,
+              COUNT(DISTINCT(src_ip)) AS d2,
+              COUNT(DISTINCT(dst_ip)) AS d3,
+              MIN(timestamp) AS d4,
+              MAX(timestamp) AS d5
               FROM questions
               GROUP BY d1
               ORDER BY d0 DESC";
