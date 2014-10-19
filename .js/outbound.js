@@ -202,10 +202,10 @@ $(document).ready(function(){
     var colT = cbArgs.split("||")[1];
     var tbl = '', head = '', row = ''; 
     head += "<thead><tr>";
-    head += "<th width=60 class=sub1>SRC IP</th>";
-    head += "<th width=60 class=sub1>DST IP</th>";
-    head += "<th width=60 class=sub1>QUESTION</th>";
-    head += "<th width=60 class=sub1>TIMESTAMP</th>";
+    head += "<th width=150 class=sub1>TIMESTAMP</th>";
+    head += "<th width=130 class=sub1>HOST</th>";
+    head += "<th width=130 class=sub1>SERVER</th>";
+    head += "<th class=sub1>QUESTION</th>";
     head += "</tr></thead>";         
 
     if (raw.length == 0) {
@@ -219,10 +219,10 @@ $(document).ready(function(){
 
       var rID = dID + "_" + i;
       row += "<tr id=" + rID + " class=dash_row>";
-      row += "<td class=row>" + sip + "</td>";
-      row += "<td class=row>" + dip + "</td>";
-      row += "<td class=row>" + qst + "</td>";
       row += "<td class=row>" + ts + "</td>";
+      row += "<td class=row>" + dip + "</td>";
+      row += "<td class=row>" + sip + "</td>";
+      row += "<td class=row>" + qst + "</td>";
       row += "</tr>";
     }
     tbl += "<table id=top_" + dID + " class=dash cellpadding=0 cellspacing=0>";
@@ -251,7 +251,7 @@ $(document).ready(function(){
      var cid = $(this).parent().attr('id');
      $("#" + cid).attr('class','dash_row_active');
      // Fade out other rows
-     $('.dash_row').fadeTo('fast',.3);
+     $('.dash_row').fadeTo('fast',.1);
 
      var type = $(this).data('obj');
      var filter = $("#" + cid).data('val');
@@ -298,10 +298,11 @@ $(document).ready(function(){
       if (tmp.length == 0) {
         var filter = "*";
       } else {
-        var filter = "WHERE question REGEXP '" + tmp + "'";
+        var filtera = "WHERE question REGEXP '" + tmp + "'";
+        var filterb = "WHERE name REGEXP '" + tmp + "'";
       }
-      mkBox("gbyQ",limit,filter,0);
-      mkBox("gbyA",limit,filter,0);  
+      mkBox("gbyQ",limit,filtera,0);
+      mkBox("gbyA",limit,filterb,0);  
     }
   });
 // End
