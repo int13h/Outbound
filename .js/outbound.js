@@ -21,7 +21,6 @@ $(document).ready(function(){
         });
       break;
       case "gbyA":
-        
         var urArgs = "type=1&limit=" + limit + "&filter=" + filter;
         var cbArgs = box + "||ANSWER";
         $(function(){
@@ -45,10 +44,10 @@ $(document).ready(function(){
     var colT = cbArgs.split("||")[1];
     var tbl = '', head = '', row = ''; 
     head += "<thead><tr>";
-    head += "<th width=40 class=sub>#Q</th>";
-    head += "<th width=40 class=sub>%Q</th>";
-    head += "<th width=40 class=sub>#SRC</th>";
-    head += "<th width=40 class=sub>#DST</th>";
+    head += "<th width=60 class=sub>#Q</th>";
+    head += "<th width=60 class=sub>%Q</th>";
+    head += "<th width=60 class=sub>HOSTS</th>";
+    head += "<th width=60 class=sub>ANSWERS</th>";
     head += "<th class=sub>" + colT + "</th>";
     head += "<th width=60 class=sub>LISTED</th>";
     head += "<th width=150 class=sub>EPOCH</th>";
@@ -91,8 +90,8 @@ $(document).ready(function(){
       row += "<tr id=" + rID + " class=dash_row data-col=8 data-val=" + dat + ">";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
-      row += "<td data-obj=src_ip class=\"row\"><b>" + sc + "</b></td>";
       row += "<td data-obj=dst_ip class=\"row\"><b>" + dc + "</b></td>";
+      row += "<td data-obj=src_ip class=\"row\"><b>" + sc + "</b></td>";
       row += "<td data-obj=question class=\"row row_filter\">" + dat + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
       row += "<td class=\"row time\">" + fs + "</td>";
@@ -296,11 +295,14 @@ $(document).ready(function(){
     key = e.keyCode ? e.keyCode : e.which;
     if (key == 13) {
       var tmp = $('#search').val();
-      var filter = "WHERE question REGEXP '" + tmp + "'";
+      if (tmp.length == 0) {
+        var filter = "*";
+      } else {
+        var filter = "WHERE question REGEXP '" + tmp + "'";
+      }
       mkBox("gbyQ",limit,filter,0);
       mkBox("gbyA",limit,filter,0);  
     }
   });
-
 // End
 });
