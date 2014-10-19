@@ -207,10 +207,10 @@ $(document).ready(function(){
     var colT = cbArgs.split("||")[1];
     var tbl = '', head = '', row = ''; 
     head += "<thead><tr>";
-    head += "<th width=60 class=sub>SRC IP</th>";
-    head += "<th width=60 class=sub>DST IP</th>";
-    head += "<th width=60 class=sub>QUESTION</th>";
-    head += "<th width=60 class=sub>TIMESTAMP</th>";
+    head += "<th width=60 class=sub1>SRC IP</th>";
+    head += "<th width=60 class=sub1>DST IP</th>";
+    head += "<th width=60 class=sub1>QUESTION</th>";
+    head += "<th width=60 class=sub1>TIMESTAMP</th>";
     head += "</tr></thead>";         
 
     if (raw.length == 0) {
@@ -251,15 +251,28 @@ $(document).ready(function(){
 
   // Rows - object subqueries
   $(document).on('click', '.row_filter', function() {
-     var cid      = $(this).parent().attr('id');
-     var type     = $(this).data('obj');
+     // Add class to clicked row, if we are already expanded then return 
+     if ($('.dash_row_active')[0]) return;
+     var cid = $(this).parent().attr('id');
+     $("#" + cid).attr('class','dash_row_active');
+
+     var type = $(this).data('obj');
      var question = $("#" + cid).data('val');
-     var col      = $("#" + cid).data('col');
+     var col = $("#" + cid).data('col');
      // Create the object for our dst data
-     var row = "<tr><td id=sub_" + cid + " colspan=" + col + "></td></tr>";
+     var row = "<tr><td id=sub_" + cid + " class=row_sub colspan=" + col + "></td></tr>";
      $("#" + cid).after(row);
      mkBox(type,10,question,cid);
   });
 
+  // Rows - remove subqueries
+  $(document).on('click', '.dash_row_active', function() {
+    var cid = $(this).attr('id');
+    $("#" + cid).attr('class','dash_row');
+    $("#sub_" + cid).parent().fadeOut('fast', function() {
+      $("#sub_" + cid).parent().remove();
+    );
+    
+  });
 // End
 });
