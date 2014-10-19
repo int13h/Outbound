@@ -33,11 +33,12 @@ clear:right;
 }
 div.box100 {
 width:100%;
-background-color:#545454;
+background-color:#717171;
 border:1pt solid #c9c9c9;
 padding-top:15px;
 padding-bottom:15px;
 border-radius:4px;
+margin-bottom:20px;
 }
 div.box50 {
 float:left;
@@ -78,6 +79,7 @@ background:transparent;
 border-bottom:1pt dotted #dbdbdb;
 color:#000;
 padding:6px 5px;
+height:20px;
 }
 td.row_filter:hover {
 text-decoration:underline;
@@ -87,11 +89,11 @@ tr.dash_row:hover {
 background-color:#fff;
 }
 div.bars {
-border: 1pt solid lightblue;
+border: 1pt solid #d5d4d4;
 border-left:none;
-background-color:#E2EFFF;
+background-color:#e7e7e7;
 height:16px;
-margin-top:-22px;
+margin-top:-26px;
 border-top-right-radius:2px;
 border-bottom-right-radius:3px;
 }
@@ -120,4 +122,9 @@ font-size:11px;
 margin-right:10px;
 width:150px;
 text-align:right;
+}
+img.indicator {
+width:12px;
+height:12px;
+margin-left:3px;
 }

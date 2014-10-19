@@ -69,7 +69,7 @@ $(document).ready(function(){
         break;
         default:
           var blStyle  = "style=\"color: #cc0000; font-weight:bold;\"";
-          var blStatus = "YES";
+          var blStatus = "<img class=indicator src=\".css/bad.png\">";
         break;
       }  
 
