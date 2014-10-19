@@ -23,7 +23,13 @@ checkDB();
 
 <div class=box>
   <div class=box100>
-      <span class=label_a>SEARCH</span><input class=input id=search maxlength=500 size=50>
+      <div class=left>
+        <span class=label_a>SEARCH</span><input class=input id=search maxlength=500 size=80">
+        <span class=label_a>QUICK</span>
+      </div>
+      <div class=left>
+        <div class=icon><img class=icon_img title="Show me blacklisted hosts" src=.css/ico_bad.png></div>
+      </div>
   </div>
 </div>
 

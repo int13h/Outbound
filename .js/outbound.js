@@ -177,5 +177,15 @@ $(document).ready(function(){
     var base    = section.split("_")[1];
     var limit   = Number($("#" + section + "_lbl").text());
     if (limit > 0) mkBox(base, limit);
-  }); 
+  });
+
+  // Search
+
+
+  // Icons
+   
+
+
+
+ 
 });
