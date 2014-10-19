@@ -72,8 +72,9 @@ $(document).ready(function(){
           var blStatus = "<img class=indicator src=\".css/bad.png\">";
         break;
       }  
-
-      row += "<tr class=dash_row>";
+      
+      var rID = dID + "_" + i;
+      row += "<tr id=" + rID + " class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=row><b>" + sc + "</b></td>";
@@ -149,7 +150,8 @@ $(document).ready(function(){
           var acVal = "--";
       }
 
-      row += "<tr class=dash_row>";
+      var rID = dID + "_" + i;
+      row += "<tr id=" + rID + " class=dash_row>";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=\"row row_filter\">" + dat + "</td>";
@@ -179,13 +181,17 @@ $(document).ready(function(){
     if (limit > 0) mkBox(base, limit);
   });
 
-  // Search
+  //
+  // Click Events
+  //
 
+  // Rows - object subqueries
+  $(document).on('click', '.row_filter', function() {
+     alert($(this).parent().attr('id'));    
+  });
 
   // Icons
-   
+    
+  
 
-
-
- 
 });

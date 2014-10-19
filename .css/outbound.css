@@ -115,7 +115,7 @@ background-color:#fff;
 div.bars {
 border: 1pt solid #d5d4d4;
 border-left:none;
-background-color:#e7e7e7;
+background-color:#a0c9ff;
 height:16px;
 margin-top:-26px;
 border-top-right-radius:2px;
@@ -144,7 +144,7 @@ div.ovbi, div.ovsl {
 float:right;
 font-size:11px;
 margin-right:10px;
-width:150px;
+width:220px;
 text-align:right;
 }
 img.indicator {

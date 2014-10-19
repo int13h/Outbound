@@ -26,7 +26,7 @@ function gbyQuestion() {
               FROM questions
               LEFT JOIN listed ON question = object
               GROUP BY d1
-              ORDER BY d0 DESC";
+              ORDER BY d5 DESC";
     $result = mysql_query($query);
     $rows = array();
     $i = 0;
@@ -52,7 +52,7 @@ function gbyAnswer() {
               updated_at AS d5   
               FROM answers
               GROUP BY d1
-              ORDER BY d0 DESC";
+              ORDER BY d5 DESC";
     $result = mysql_query($query);
     $rows = array();
     $i = 0;
