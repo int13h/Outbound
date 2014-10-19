@@ -16,6 +16,7 @@ checkDB();
 <link rel="stylesheet" type="text/css" href=".css/viz.css" />
 <script type="text/javascript" src=".js/jq.js"></script>
 <script type="text/javascript" src=".js/outbound.js"></script>
+<script type="text/javascript" src=".js/functions.js"></script>
 <script type="text/javascript" src=".js/d3/d3.min.js"></script>
 <script type="text/javascript" src=".js/viz.js"></script>
 </head>

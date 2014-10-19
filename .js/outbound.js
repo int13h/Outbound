@@ -2,29 +2,13 @@ $(document).ready(function(){
 
   // Make intial boxes
   var limit = 10;
-  mkBox("gbyQ",limit,"*","*");
-  mkBox("gbyA",limit,"*","*");
+  mkBox("gbyQ",limit,"*",0);
+  mkBox("gbyA",limit,"*",0);
 
   // Query builder and box maker
-  function mkBox(box,limit,question,type) {
-
-    // Let's see what were are building..
-    switch (type) {
-      case "src_ip":
-      break;
-      case "dst_ip":
-      break;
-      case "question":
-      break;
-      case "answer":
-      break;
-      case "*":
-      break;
-      default:
-        var filter = "";
-      break; 
-    }
-
+  function mkBox(box,limit,question,cid) {
+  
+    var filter = s2h("nope");
     switch (box) {
       case "gbyQ":
         var urArgs = "type=0&limit=" + limit + "&filter=" + filter;
@@ -38,6 +22,21 @@ $(document).ready(function(){
         var cbArgs = box + "||ANSWER";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb01(data,cbArgs)});
+        });
+      break;
+      case "src_ip":
+        filter = s2h(question);
+        var urArgs = "type=2&limit=" + limit + "&filter=" + filter;
+        var cbArgs = box + "||SRC IP";
+        $(function(){
+          $.get(".inc/callback.php?" + urArgs, function(data){cb02(data,cbArgs,cid)});
+        });
+      break;
+      case "dst_ip":
+        var urArgs = "type=3&limit=" + limit + "&filter=" + filter;
+        var cbArgs = box + "||DST IP";
+        $(function(){
+          $.get(".inc/callback.php?" + urArgs, function(data){cb03(data,cbArgs,cid)});
         });
       break;
     }
@@ -96,9 +95,9 @@ $(document).ready(function(){
       row += "<tr id=" + rID + " class=dash_row data-col=8 data-val=" + dat + ">";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
-      row += "<td class=row><b>" + sc + "</b></td>";
-      row += "<td class=row><b>" + dc + "</b></td>";
-      row += "<td class=\"row row_filter\">" + dat + "</td>";
+      row += "<td data-obj=src_ip class=\"row row_filter\"><b>" + sc + "</b></td>";
+      row += "<td data-obj=dst_ip class=\"row row_filter\"><b>" + dc + "</b></td>";
+      row += "<td data-obj=question class=\"row row_filter\">" + dat + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
       row += "<td class=\"row time\">" + fs + "</td>";
       row += "<td class=\"row time\">" + ls + "</td>";
@@ -116,7 +115,7 @@ $(document).ready(function(){
   }
 
   // Group by Answer 
-  function cb01(data,cbArgs,caller,question){
+  function cb01(data,cbArgs){
     eval("raw=" + data);
     var dID  = cbArgs.split("||")[0];
     var colT = cbArgs.split("||")[1];
@@ -201,6 +200,44 @@ $(document).ready(function(){
     $("#" + dID).html(tbl);
   }
 
+  // Sub src_ip or dst_ip query 
+  function cb02(data,cbArgs,cid){
+    eval("raw=" + data);
+    var dID  = cid;
+    var colT = cbArgs.split("||")[1];
+    var tbl = '', head = '', row = ''; 
+    head += "<thead><tr>";
+    head += "<th width=60 class=sub>SRC IP</th>";
+    head += "<th width=60 class=sub>DST IP</th>";
+    head += "<th width=60 class=sub>QUESTION</th>";
+    head += "<th width=60 class=sub>TIMESTAMP</th>";
+    head += "</tr></thead>";         
+
+    if (raw.length == 0) {
+      row = "<tr><td class=row colspan=8>No result.</td></tr>";
+    }
+
+    for (var i=0; i<raw.length; i++) {
+      var sip = raw[i].d0 || "-";
+      var dip = raw[i].d1 || "-";
+      var qst = raw[i].d2 || "-";    
+      var ts  = raw[i].d3 || "-";
+
+      var rID = dID + "_" + i;
+      row += "<tr id=" + rID + " class=dash_row>";
+      row += "<td class=row>" + sip + "</td>";
+      row += "<td class=row>" + dip + "</td>";
+      row += "<td class=row>" + qst + "</td>";
+      row += "<td class=row>" + ts + "</td>";
+      row += "</tr>";
+    }
+    tbl += "<table id=top_" + dID + " class=dash cellpadding=0 cellspacing=0>";
+    tbl += head;
+    tbl += row;
+    tbl += "</table>";
+    $("#sub_" + dID).append(tbl);
+  }
+
   // Slider events
   $(".ovsl").mouseup(function() {
     var section = $(this).attr('id');
@@ -210,25 +247,20 @@ $(document).ready(function(){
   });
 
   //
-  // Click Events
+  // Click handlers 
   //
 
   // Rows - object subqueries
   $(document).on('click', '.row_filter', function() {
-     var cid = $(this).parent().attr('id');
-     var col = $("#" + cid).data('rows');   
+     var cid      = $(this).parent().attr('id');
+     var type     = $(this).data('obj');
+     var question = $("#" + cid).data('val');
+     var col      = $("#" + cid).data('col');
+     // Create the object for our dst data
+     var row = "<tr><td id=sub_" + cid + " colspan=" + col + "></td></tr>";
+     $("#" + cid).after(row);
+     mkBox(type,10,question,cid);
   });
 
-  // Icons
-    
-  //
-  // Writers 
-  //
-
-  function resultTable(cid,col) {
-     
-    
-    
-  
-  }  
+// End
 });

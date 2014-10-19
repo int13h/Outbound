@@ -10,6 +10,7 @@ $type = $_REQUEST['type'];
 $types = array(
                   0 => 'gbyQuestion',
                   1 => 'gbyAnswer',
+                  2 => 'queryAnswer',
 );
 
 $type   = $types[$type];
@@ -77,5 +78,21 @@ function gbyAnswer() {
     echo $theJSON;
 }
 
+function queryAnswer() {
+    global $limit, $filter;
+    $query = "SELECT src_ip AS d0,
+              dst_ip AS d1,
+              question AS d2,
+              timestamp AS d3,
+              HEX(packet) AS d4
+              FROM questions   
+              WHERE question = '$filter'
+              ORDER BY d3 DESC";
+    $result = mysql_query($query);
+    $row = mysql_fetch_assoc($result);
+    $rows[] = $row;
+    $theJSON = json_encode($rows);
+    echo $theJSON;
+}
 $type();
 ?>
