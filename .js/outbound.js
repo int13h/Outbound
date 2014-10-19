@@ -128,13 +128,22 @@ $(document).ready(function(){
       var ac  = raw[i].d3 || "-";
       var fs  = raw[i].d4 || "-";
       var ls  = raw[i].d5 || "-";
+      var bl  = raw[i].d6 || "-";
 
       var per = 0;
       if (sum > 0) per = parseFloat(cnt/sum*100).toFixed(2);
 
-      // Check Blacklist status
-      var blStyle  = "style=\"color: #b5b5b5;\""; 
-      var blStatus = "NO"; 
+      // Check blacklists
+      switch (bl) {
+        case "-":
+          var blStyle  = "style=\"color: #b5b5b5;\""; 
+          var blStatus = "NO";
+        break;
+        default:
+          var blStyle  = "style=\"color: #cc0000; font-weight:bold;\"";
+          var blStatus = "<img class=indicator src=\".css/bad.png\">";
+        break;
+      }  
 
       // Is Active?
       switch (ac) {

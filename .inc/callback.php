@@ -49,8 +49,10 @@ function gbyAnswer() {
               record AS d2,
               active AS d3,
               created_at AS d4,
-              updated_at AS d5   
-              FROM answers
+              updated_at AS d5,
+              object AS d6
+              FROM answers   
+              LEFT JOIN listed ON data = object
               GROUP BY d1
               ORDER BY d5 DESC";
     $result = mysql_query($query);
