@@ -2,20 +2,39 @@ $(document).ready(function(){
 
   // Make intial boxes
   var limit = 10;
-  mkBox("gbyQ",limit);
-  mkBox("gbyA",limit);
+  mkBox("gbyQ",limit,"*","*");
+  mkBox("gbyA",limit,"*","*");
 
-  function mkBox(box,limit) {
+  // Query builder and box maker
+  function mkBox(box,limit,question,type) {
+
+    // Let's see what were are building..
+    switch (type) {
+      case "src_ip":
+      break;
+      case "dst_ip":
+      break;
+      case "question":
+      break;
+      case "answer":
+      break;
+      case "*":
+      break;
+      default:
+        var filter = "";
+      break; 
+    }
+
     switch (box) {
       case "gbyQ":
-        var urArgs = "type=0&limit=" + limit;
+        var urArgs = "type=0&limit=" + limit + "&filter=" + filter;
         var cbArgs = box + "||QUESTION";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb00(data,cbArgs)});
         });
       break;
       case "gbyA":
-        var urArgs = "type=1&limit=" + limit;
+        var urArgs = "type=1&limit=" + limit + "&filter=" + filter;
         var cbArgs = box + "||ANSWER";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb01(data,cbArgs)});
@@ -74,7 +93,7 @@ $(document).ready(function(){
       }  
       
       var rID = dID + "_" + i;
-      row += "<tr id=" + rID + " class=dash_row>";
+      row += "<tr id=" + rID + " class=dash_row data-col=8 data-val=" + dat + ">";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=row><b>" + sc + "</b></td>";
@@ -97,7 +116,7 @@ $(document).ready(function(){
   }
 
   // Group by Answer 
-  function cb01(data,cbArgs){
+  function cb01(data,cbArgs,caller,question){
     eval("raw=" + data);
     var dID  = cbArgs.split("||")[0];
     var colT = cbArgs.split("||")[1];
@@ -160,7 +179,7 @@ $(document).ready(function(){
       }
 
       var rID = dID + "_" + i;
-      row += "<tr id=" + rID + " class=dash_row>";
+      row += "<tr id=" + rID + " class=dash_row data-col=8 data-val=" + dat + ">";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
       row += "<td class=\"row row_filter\">" + dat + "</td>";
@@ -196,11 +215,20 @@ $(document).ready(function(){
 
   // Rows - object subqueries
   $(document).on('click', '.row_filter', function() {
-     alert($(this).parent().attr('id'));    
+     var cid = $(this).parent().attr('id');
+     var col = $("#" + cid).data('rows');   
   });
 
   // Icons
     
-  
+  //
+  // Writers 
+  //
 
+  function resultTable(cid,col) {
+     
+    
+    
+  
+  }  
 });

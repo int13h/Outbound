@@ -58,8 +58,15 @@ background-color:#f4f4f4;
 padding:7px;
 color:#666;
 }
-div.left{
+div.left {
 float:left;
+}
+div.right {
+float:right;
+}
+div.icon_box {
+float:left;
+margin-left:50px;
 }
 .icon {
 text-align:center;

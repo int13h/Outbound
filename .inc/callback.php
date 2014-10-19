@@ -12,10 +12,15 @@ $types = array(
                   1 => 'gbyAnswer',
 );
 
-$type = $types[$type];
+$type   = $types[$type];
+$limit  = $_REQUEST['limit'];
+$filter = hextostr(mysql_real_escape_string($_REQUEST['filter']));
+if ($filter == 'nope') {
+  $filter = '';
+}
 
 function gbyQuestion() {
-    $limit = $_REQUEST['limit'];
+    global $limit, $filter;
     $query = "SELECT COUNT(question) AS d0, 
               question AS d1,
               COUNT(DISTINCT(src_ip)) AS d2,
@@ -25,6 +30,7 @@ function gbyQuestion() {
               object AS d6
               FROM questions
               LEFT JOIN listed ON question = object
+              $filter
               GROUP BY d1
               ORDER BY d5 DESC";
     $result = mysql_query($query);
@@ -43,7 +49,7 @@ function gbyQuestion() {
 }
 
 function gbyAnswer() {
-    $limit = $_REQUEST['limit'];
+    global $limit, $filter;
     $query = "SELECT COUNT(data) AS d0,
               data AS d1,
               record AS d2,
@@ -53,6 +59,7 @@ function gbyAnswer() {
               object AS d6
               FROM answers   
               LEFT JOIN listed ON data = object
+              $filter
               GROUP BY d1
               ORDER BY d5 DESC";
     $result = mysql_query($query);
