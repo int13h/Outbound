@@ -25,11 +25,12 @@ checkDB();
 <div class=box>
   <div class=box100>
       <div class=left>
-        <span class=label_a>SEARCH</span><input class=input id=search maxlength=500 size=80">
-        <span class=label_a>QUICK</span>
-        
+        <div class=label_a>SEARCH</div>
+        <div class=left><input class=input id=search maxlength=500 size=80"></div>
       </div>
       <div class=left>
+        <!--div class=icon id=dosearch><img id=dosearch class=icon_img title="Refresh results" src=.css/ico_refresh.png></div-->
+        <div class=label_a>QUICK</div> 
         <div class=icon><img id=refresh class=icon_img title="Refresh results" src=.css/ico_refresh.png></div>
         <div class=icon><img id=check_listed class=icon_img title="Show me blacklisted hosts" src=.css/ico_bad.png></div>
       </div>

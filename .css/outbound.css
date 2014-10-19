@@ -60,6 +60,7 @@ color:#666;
 }
 div.left {
 float:left;
+margin-left:10px;
 }
 div.right {
 float:right;
@@ -86,10 +87,12 @@ height:20px
 .icon:hover {
 opacity:.7;
 }
-span.label_a {
+div.label_a {
+float:left;
 color:#fafafa;
-margin-right:10px;
 margin-left:20px;
+margin-right:10px;
+padding-top:8px;
 }
 table.dash {
 width:100%;
@@ -125,7 +128,8 @@ text-decoration:underline;
 cursor:pointer;
 }
 tr.dash_row_active {
-background-color:#ffa;
+background-color:#d8d889;
+border:2pt solid #000;
 }
 tr.dash_row:hover {
 background-color:#fff;

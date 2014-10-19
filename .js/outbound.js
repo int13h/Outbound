@@ -238,7 +238,7 @@ $(document).ready(function(){
     var section = $(this).attr('id');
     var base    = section.split("_")[1];
     var limit   = Number($("#" + section + "_lbl").text());
-    if (limit > 0) mkBox(base, limit);
+    if (limit > 0) mkBox(base,limit,"*","*");
   });
 
   //
@@ -255,12 +255,12 @@ $(document).ready(function(){
      $('.dash_row').fadeTo('fast',.3);
 
      var type = $(this).data('obj');
-     var question = $("#" + cid).data('val');
+     var filter = $("#" + cid).data('val');
      var col = $("#" + cid).data('col');
      // Create the object for our dst data
      var row = "<tr><td id=sub_" + cid + " class=row_sub colspan=" + col + "></td></tr>";
      $("#" + cid).after(row);
-     mkBox(type,10,question,cid);
+     mkBox(type,10,filter,cid);
   });
 
   // Rows - remove subqueries
@@ -289,5 +289,18 @@ $(document).ready(function(){
     mkBox("gbyQ",limit,filter,0);
     mkBox("gbyA",limit,filter,0);
   });
+
+  // Search on enter - need regexp on this :/
+  $('#search').keypress(function(e) {
+    if (!e) e=window.event;
+    key = e.keyCode ? e.keyCode : e.which;
+    if (key == 13) {
+      var tmp = $('#search').val();
+      var filter = "WHERE question REGEXP '" + tmp + "'";
+      mkBox("gbyQ",limit,filter,0);
+      mkBox("gbyA",limit,filter,0);  
+    }
+  });
+
 // End
 });
