@@ -97,7 +97,7 @@ $(document).ready(function(){
       row += "<td class=\"row time\">" + fs + "</td>";
       row += "<td class=\"row time\">" + ls + "</td>";
       row += "</tr>";
-      row += "<tr><td colspan=6><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
+      row += "<tr><td colspan=8><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
     }
     tbl += "<table id=top_" + dID + " class=dash cellpadding=0 cellspacing=0>";
     tbl += head;
@@ -183,7 +183,7 @@ $(document).ready(function(){
       row += "<td class=row>" + fs + "</td>";
       row += "<td class=row>" + ls + "</td>";
       row += "</tr>";
-      row += "<tr><td colspan=6><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
+      row += "<tr><td colspan=8><div class=bars style=\"width:" + per + "%;\"></div></td></tr>";
     }
     tbl += "<table id=top_" + dID + " class=dash cellpadding=0 cellspacing=0>";
     tbl += head;
