@@ -216,7 +216,6 @@ $(document).ready(function(){
     if (raw.length == 0) {
       row = "<tr><td class=row colspan=8>No result.</td></tr>";
     }
-
     for (var i=0; i<raw.length; i++) {
       var sip = raw[i].d0 || "-";
       var dip = raw[i].d1 || "-";

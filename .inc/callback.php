@@ -89,8 +89,10 @@ function queryAnswer() {
               WHERE question = '$filter'
               ORDER BY d3 DESC";
     $result = mysql_query($query);
-    $row = mysql_fetch_assoc($result);
-    $rows[] = $row;
+    $rows = array();
+    while ($row = mysql_fetch_assoc($result)) {
+        $rows[] = $row;
+    }    
     $theJSON = json_encode($rows);
     echo $theJSON;
 }
