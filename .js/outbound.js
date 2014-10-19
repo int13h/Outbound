@@ -9,6 +9,9 @@ $(document).ready(function(){
   function mkBox(box,limit,question,cid) {
   
     var filter = s2h("nope");
+    if (question != "*") { // Then we have a filter
+      filter = s2h(question);   
+    }
     switch (box) {
       case "gbyQ":
         var urArgs = "type=0&limit=" + limit + "&filter=" + filter;
@@ -18,25 +21,18 @@ $(document).ready(function(){
         });
       break;
       case "gbyA":
+        
         var urArgs = "type=1&limit=" + limit + "&filter=" + filter;
         var cbArgs = box + "||ANSWER";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb01(data,cbArgs)});
         });
       break;
-      case "src_ip":
-        filter = s2h(question);
+      case "question":
         var urArgs = "type=2&limit=" + limit + "&filter=" + filter;
-        var cbArgs = box + "||SRC IP";
+        var cbArgs = box + "||QUESTION";
         $(function(){
           $.get(".inc/callback.php?" + urArgs, function(data){cb02(data,cbArgs,cid)});
-        });
-      break;
-      case "dst_ip":
-        var urArgs = "type=3&limit=" + limit + "&filter=" + filter;
-        var cbArgs = box + "||DST IP";
-        $(function(){
-          $.get(".inc/callback.php?" + urArgs, function(data){cb03(data,cbArgs,cid)});
         });
       break;
     }
@@ -95,8 +91,8 @@ $(document).ready(function(){
       row += "<tr id=" + rID + " class=dash_row data-col=8 data-val=" + dat + ">";
       row += "<td class=row><b>" + cnt + "</b></td>";
       row += "<td class=row><b>" + per + "%</b></td>";
-      row += "<td data-obj=src_ip class=\"row row_filter\"><b>" + sc + "</b></td>";
-      row += "<td data-obj=dst_ip class=\"row row_filter\"><b>" + dc + "</b></td>";
+      row += "<td data-obj=src_ip class=\"row\"><b>" + sc + "</b></td>";
+      row += "<td data-obj=dst_ip class=\"row\"><b>" + dc + "</b></td>";
       row += "<td data-obj=question class=\"row row_filter\">" + dat + "</td>";
       row += "<td class=row " + blStyle + ">" + blStatus + "</td>";
       row += "<td class=\"row time\">" + fs + "</td>";
@@ -255,6 +251,8 @@ $(document).ready(function(){
      if ($('.dash_row_active')[0]) return;
      var cid = $(this).parent().attr('id');
      $("#" + cid).attr('class','dash_row_active');
+     // Fade out other rows
+     $('.dash_row').fadeTo('fast',.3);
 
      var type = $(this).data('obj');
      var question = $("#" + cid).data('val');
@@ -271,8 +269,25 @@ $(document).ready(function(){
     $("#" + cid).attr('class','dash_row');
     $("#sub_" + cid).parent().fadeOut('fast', function() {
       $("#sub_" + cid).parent().remove();
-    );
-    
+    });
+    $('.dash_row').fadeTo('fast',1);
+  });
+ 
+  // Icons
+  $(document).on('click', '.icon_img', function() {
+    var icon = $(this).attr('id');
+    var filter = "nope";
+    switch (icon) {
+      case "check_listed":
+        // If object is NULL there were no matches..
+        filter = "WHERE object IS NOT NULL";
+      break;
+      case "refresh":
+        filter = "nope";
+      break; 
+    }
+    mkBox("gbyQ",limit,filter,0);
+    mkBox("gbyA",limit,filter,0);
   });
 // End
 });
